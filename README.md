@@ -55,7 +55,8 @@ There are a few things you must do to get the app up and running. After that the
 
 * Write [ansible](http://docs.ansible.com/ansible/intro.html) playbooks for installing [docker](https://www.docker.com/) and the app itself.
 
-##Copy and create develop branch
+## Copy and create develop branch
+
 ```
 https://github.com/Eficode/weatherapp -> download zip file -> extract to c:/eficode/weatherapp
 open Git Bash to c:/eficode/weatherapp
