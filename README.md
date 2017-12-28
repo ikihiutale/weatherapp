@@ -55,6 +55,8 @@ There are a few things you must do to get the app up and running. After that the
 
 * Write [ansible](http://docs.ansible.com/ansible/intro.html) playbooks for installing [docker](https://www.docker.com/) and the app itself.
 
+# Development prerequisites
+
 ## Copy and create develop branch
 
 ```
@@ -62,8 +64,12 @@ https://github.com/Eficode/weatherapp -> download zip file -> extract to c:/efic
 open Git Bash to c:/eficode/weatherapp
 git init
 git add .
-git commit -m "first commit"
+git commit -m "Copy and create develop branch"
 git remote add origin https://github.com/ikihiutale/weatherapp.git
 git push -u origin master
 git checkout -b develop
 ```
+
+## OpenWeatherMap
+Set API key into the c:/eficode/weatherapp/.env file 
+Add the .env file to the c:/eficode/weatherapp/.gitignore file
