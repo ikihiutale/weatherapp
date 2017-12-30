@@ -70,6 +70,8 @@ git push -u origin master
 git checkout -b develop
 ```
 
-## OpenWeatherMap
-Set API key into the c:/eficode/weatherapp/.env file 
-Add the .env file to the c:/eficode/weatherapp/.gitignore file
+## Environment
+* Set http://openweathermap.org/ APPID key into the c:/eficode/weatherapp/backend/.env file 
+* Add the .env file to the c:/eficode/weatherapp/.gitignore file
+* Turn the Hyper-V Windows feature ON
+* Install https://store.docker.com/editions/community/docker-ce-desktop-windows
