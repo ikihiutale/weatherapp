@@ -55,7 +55,13 @@ There are a few things you must do to get the app up and running. After that the
 
 * Write [ansible](http://docs.ansible.com/ansible/intro.html) playbooks for installing [docker](https://www.docker.com/) and the app itself.
 
-# Development prerequisites
+
+# Development 
+
+Windows 10 OS
+
+Install the newest Node version 
+Upgrade npm 
 
 ## Copy and create develop branch
 
@@ -75,3 +81,5 @@ git checkout -b develop
 * Add the .env file to the c:/eficode/weatherapp/.gitignore file
 * Turn the Hyper-V Windows feature ON
 * Install https://store.docker.com/editions/community/docker-ce-desktop-windows
+
+## Docker
