@@ -1,34 +1,36 @@
-# Build image: docker build -f backend.develop.dockerfile -t wheather_backend/v1 .
+# Set env:
+# docker-machine ls
+# docker-machine env default
+# eval $("C:\Program Files\Docker Toolbox\docker-machine.exe" env default)
+# docker-machine ip
+# Build image: docker build -f backend.develop.dockerfile -t <your username>/node_wheather_backend:v1.0 .
 
-# Option 1
-# Start Frontend (Webpack / React / Node) and Backend (Node / Koe) 
-# and link Frontend to Backend container with legacy linking.
-#
-# docker run -d --name my-mongodb mongo
-# docker run -d -p 3000:3000 --link my-mongodb:mongodb --name nodeapp danwahlin/node
+# Run container: 
+# docker run -d -p 9000:9000 -v $(PWD):/app --name weather_backend <your username>/node_wheather_backend:v1.0 start
+# docker run -d -p 9000:9000 -v $(PWD):/app --name weather_backend <your username>/node_wheather_backend:v1.0 dev
+# docker run -d -p 9000:9000 -v $(PWD):/app --name weather_backend <your username>/node_wheather_backend:v1.0 lint
 
-# Option 2: Create a custom bridge network and add containers into it
-
-# docker network create --driver bridge isolated_network
-# docker run -d --net=isolated_network --name mongodb mongo
-# docker run -d --net=isolated_network --name nodeapp -p 3000:3000 danwahlin/node
-
-# Seed the database with sample database
-# Run: docker exec nodeapp node dbSeeder.js
+# Cleanup
+# docker ps -l
+# docker stop <id>
+# docker rm <id>
+# docker images
+# docker rmi -v <image id>
 
 FROM node:latest
 
-MAINTAINER Kimmo Tuokkola
-
 ENV NODE_ENV=development 
 ENV PORT=9000
-ENV APPID=
+ENV APP_HOME=/app
 
-COPY      . /var/www
-WORKDIR   /var/www
+# An API key to make queries in the https://github.com/Eficode/weatherapp
+ENV APPID=xxxxxx
 
-RUN       npm install
+COPY . $APP_HOME
+WORKDIR $APP_HOME
+
+RUN npm install
 
 EXPOSE $PORT
 
-ENTRYPOINT ["npm", "start"]
+ENTRYPOINT ["npm", "run"]

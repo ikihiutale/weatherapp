@@ -1,0 +1,42 @@
+# Build & run
+# docker-compose build
+# docker-compose up
+
+# Cleanup
+# Run docker-compose down -v
+
+version: '2'
+
+services:
+
+  backend:
+    image: ikihiutale/node_wheather_backend:v1.0
+    build:
+      context: ./backend
+      dockerfile: backend.develop.dockerfile
+#    volumes:
+#      - ./backend:/app
+#      - /app/node_modules
+    ports:
+      - "9000:9000"
+    entrypoint: npm run dev
+    networks:
+      - weather_network
+      
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: frontend.develop.dockerfile
+#    volumes:
+#      - ./frontend:/app
+#      - /app/node_modules
+
+    ports:
+      - "8000:8000"
+    entrypoint: npm run start
+    networks:
+      - weather_network
+
+networks:
+  weather_network:
+    driver: bridge
