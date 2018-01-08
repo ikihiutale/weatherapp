@@ -6,9 +6,9 @@
 # Build image: docker build -f backend.develop.dockerfile -t <your username>/node_wheather_backend:v1.0 .
 
 # Run container: 
-# docker run -d -p 9000:9000 -v $(PWD):/app --name weather_backend <your username>/node_wheather_backend:v1.0 start
-# docker run -d -p 9000:9000 -v $(PWD):/app --name weather_backend <your username>/node_wheather_backend:v1.0 dev
-# docker run -d -p 9000:9000 -v $(PWD):/app --name weather_backend <your username>/node_wheather_backend:v1.0 lint
+# docker run -p 9000:9000 --name weather_backend <your username>/node_wheather_backend:v1.0 start
+# docker run -p 9000:9000 --name weather_backend <your username>/node_wheather_backend:v1.0 dev
+# docker run -p 9000:9000 <your username>/node_wheather_backend:v1.0 lint
 
 # Cleanup
 # docker ps -l
@@ -18,8 +18,6 @@
 # docker rmi -v <image id>
 
 FROM node:latest
-
-MAINTAINER Kimmo Tuokkola
 
 ENV NODE_ENV=development 
 ENV PORT=9000

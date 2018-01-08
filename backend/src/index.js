@@ -6,8 +6,8 @@ const fetch = require('node-fetch');
 const cors = require('kcors');
 
 const appId = process.env.APPID || '';
-const mapURI = process.env.MAP_ENDPOINT || "http://api.openweathermap.org/data/2.5";
-const targetCity = process.env.TARGET_CITY || "Helsinki,fi";
+    const mapURI = process.env.MAP_ENDPOINT || 'http://api.openweathermap.org/data/2.5';
+  const targetCity = process.env.TARGET_CITY || 'Helsinki,fi';
 
 const port = process.env.PORT || 9000;
 
@@ -15,18 +15,41 @@ const app = new Koa();
 
 app.use(cors());
 
+/**
+ * Fetch forecast
+ * @param timeframe 
+ * @return weather object
+ */
+const fetchForecast = async (timeframe) => {
+  const endpoint = `${mapURI}/forecast?q=${targetCity}&appid=${appId}&`;  
+  const response = await fetch(endpoint);
+  var result = {};
+  if (response) {
+    result = await response.json();
+    if (result.list && result.list.length > timeframe && result.list[timeframe].weather) {
+      return result.list[timeframe].weather[0];
+    }
+  }
+  return result;
+};
+
 const fetchWeather = async () => {
   const endpoint = `${mapURI}/weather?q=${targetCity}&appid=${appId}&`;
   const response = await fetch(endpoint);
-
-  return response ? response.json() : {}
+  var result = {};
+  if (response) {
+    result = await response.json();
+    if (result.weather) {
+      return result.weather[0];
+    }
+  }
+  return result;
 };
 
 router.get('/api/weather', async ctx => {
-  const weatherData = await fetchWeather();
-
-  ctx.type = 'application/json; charset=utf-8';
-  ctx.body = weatherData.weather ? weatherData.weather[0] : {};
+  const weatherData = await fetchForecast(2);
+  ctx.type = 'application/json; charset=utf-8';  
+  ctx.body = weatherData ? weatherData : {};
 });
 
 app.use(router.routes());
@@ -34,4 +57,4 @@ app.use(router.allowedMethods());
 
 app.listen(port);
 
-console.log(`App listening on port ${port}`);
+debug(`App listening on port ${port}`);
