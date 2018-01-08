@@ -9,10 +9,10 @@
 
 # Option 2: Create a custom bridge network and add containers into it
 # docker network create --driver bridge weather_network
-# docker run -d -p 9000:9000 --net=weather_network --name weather_backend <your username>/node_wheather_backend:v1.0 dev
+# docker run -d -p 9000:9000 -v $(PWD):/app --net=weather_network --name weather_backend <your username>/node_wheather_backend:v1.0 dev
 #
-# docker run -d -p 8000:8000 --net=weather_network --name weather_frontend <your username>/node_wheather_frontend:v1.0 start
-# docker run -d -p 8000:8000 --net=weather_network --name weather_frontend <your username>/node_wheather_frontend:v1.0 lint
+# docker run -d -p 8000:8000 -v $(PWD):/app --net=weather_network --name weather_frontend <your username>/node_wheather_frontend:v1.0 start
+# docker run -d -p 8000:8000 -v $(PWD):/app --net=weather_network --name weather_frontend <your username>/node_wheather_frontend:v1.0 lint
 
 
 FROM node:latest
@@ -24,8 +24,7 @@ ENV ENDPOINT=http://0.0.0.0:9000/api
 ENV PORT=8000
 ENV APP_HOME=/app
 
-RUN mkdir $APP_HOME
-ADD . $APP_HOME
+COPY . /$APP_HOME
 WORKDIR $APP_HOME
 
 RUN npm install

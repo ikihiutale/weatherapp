@@ -6,9 +6,9 @@
 # Build image: docker build -f backend.develop.dockerfile -t <your username>/node_wheather_backend:v1.0 .
 
 # Run container: 
-# docker run -d -p 9000:9000 --name weather_backend <your username>/node_wheather_backend:v1.0 start
-# docker run -d -p 9000:9000 --name weather_backend <your username>/node_wheather_backend:v1.0 dev
-# docker run -d -p 9000:9000 --name weather_backend <your username>/node_wheather_backend:v1.0 lint
+# docker run -d -p 9000:9000 -v $(PWD):/app --name weather_backend <your username>/node_wheather_backend:v1.0 start
+# docker run -d -p 9000:9000 -v $(PWD):/app --name weather_backend <your username>/node_wheather_backend:v1.0 dev
+# docker run -d -p 9000:9000 -v $(PWD):/app --name weather_backend <your username>/node_wheather_backend:v1.0 lint
 
 # Cleanup
 # docker ps -l
@@ -28,8 +28,7 @@ ENV APP_HOME=/app
 # An API key to make queries in the https://github.com/Eficode/weatherapp
 ENV APPID=bccf96598c0818836346cb8f69314912
 
-RUN mkdir $APP_HOME
-ADD . $APP_HOME
+COPY . /$APP_HOME
 WORKDIR $APP_HOME
 
 RUN npm install
