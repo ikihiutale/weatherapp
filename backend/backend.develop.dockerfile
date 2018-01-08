@@ -26,9 +26,9 @@ ENV PORT=9000
 ENV APP_HOME=/app
 
 # An API key to make queries in the https://github.com/Eficode/weatherapp
-ENV APPID=bccf96598c0818836346cb8f69314912
+ENV APPID=
 
-COPY . /$APP_HOME
+COPY . $APP_HOME
 WORKDIR $APP_HOME
 
 RUN npm install

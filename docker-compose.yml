@@ -14,8 +14,9 @@ services:
     build:
       context: ./backend
       dockerfile: backend.develop.dockerfile
-
-
+#    volumes:
+#      - ./backend:/app
+#      - /app/node_modules
     ports:
       - "9000:9000"
     entrypoint: npm run dev
@@ -26,6 +27,9 @@ services:
     build:
       context: ./frontend
       dockerfile: frontend.develop.dockerfile
+#    volumes:
+#      - ./frontend:/app
+#      - /app/node_modules
 
     ports:
       - "8000:8000"

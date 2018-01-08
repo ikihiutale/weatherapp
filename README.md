@@ -55,6 +55,7 @@ There are a few things you must do to get the app up and running. After that the
 
 * Write [ansible](http://docs.ansible.com/ansible/intro.html) playbooks for installing [docker](https://www.docker.com/) and the app itself.
 
+# Solution 
 
 # Development 
 
@@ -77,9 +78,55 @@ git checkout -b develop
 ```
 
 ## Environment
-* Set http://openweathermap.org/ APPID key into the c:/eficode/weatherapp/backend/.env file 
-* Add the .env file to the c:/eficode/weatherapp/.gitignore file
-* Turn the Hyper-V Windows feature ON
-* Install https://store.docker.com/editions/community/docker-ce-desktop-windows
 
-## Docker
+* The http://openweathermap.org/ APPID key value set to the wheather/backend/backend.develop.dockerfile file: ENV APPID=xxxx
+
+* Installed Docker Toolbox for Windows: https://docs.docker.com/toolbox/toolbox_install_windows/
+
+## Dockerfile
+
+### Backend
+
+Build image: 
+```
+docker build -f backend.develop.dockerfile -t <your username>/node_wheather_backend:v1.0 .
+```
+Run container: 
+```
+docker run -d -p 9000:9000 -v $(PWD):/app --name weather_backend <your username>/node_wheather_backend:v1.0 start
+
+docker run -d -p 9000:9000 -v $(PWD):/app --name weather_backend <your username>/node_wheather_backend:v1.0 dev
+
+docker run -d -p 9000:9000 -v $(PWD):/app --name weather_backend <your username>/node_wheather_backend:v1.0 lint
+```
+
+### Frontend
+
+Build image: 
+```
+docker build -f frontend.develop.dockerfile -t <user name>/node_wheather_frontend:v1.0 .
+```
+Run container:
+```
+docker run -d -p 8000:8000 -v $(PWD):/app --name weather_frontend <your username>/node_wheather_frontend:v1.0 start
+
+docker run -d -p 8000:8000 -v $(PWD):/app --name weather_frontend <your username>/node_wheather_frontend:v1.0 lint
+```
+
+## docker-compose.yml
+
+Build & run:
+```
+docker-compose build
+
+docker-compose up
+```
+
+Cleanup:
+```
+Run docker-compose down -v: 
+```
+
+### TODO
+
+I didn't get the volumes up & running..
