@@ -59,7 +59,7 @@ There are a few things you must do to get the app up and running. After that the
 
 > OS: Windows 10
 
-## Copy and create develop branch
+## Copy and create master branch
 
 ```
 https://github.com/Eficode/weatherapp -> download zip file -> extract to c:/eficode/weatherapp
@@ -134,6 +134,10 @@ docker-machine ip
 ```
 
 ## Optional
+
+### Forecast
+
+Added a new method to the back-end in order to fetch a forecast x3 hours from now
 
 ### Eslint errors
 
