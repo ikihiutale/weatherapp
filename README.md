@@ -57,27 +57,25 @@ There are a few things you must do to get the app up and running. After that the
 
 # Solution 
 
-# Development 
-
-Windows 10 OS
-
-Install the newest Node version 
-Upgrade npm 
+> OS: Windows 10
 
 ## Copy and create develop branch
 
 ```
 https://github.com/Eficode/weatherapp -> download zip file -> extract to c:/eficode/weatherapp
-open Git Bash to c:/eficode/weatherapp
+open Git Bash 
 git init
 git add .
 git commit -m "Copy and create develop branch"
 git remote add origin https://github.com/ikihiutale/weatherapp.git
 git push -u origin master
-git checkout -b develop
 ```
 
 ## Environment
+
+* Install the newest Node version 
+
+* Upgrade npm 
 
 * The http://openweathermap.org/ APPID key value set to the wheather/backend/backend.develop.dockerfile file: ENV APPID=xxxx
 
@@ -129,4 +127,4 @@ Run docker-compose down -v:
 
 ### TODO
 
-I didn't get the volumes up & running..
+I didn't get the 'volumes' up & running..
