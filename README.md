@@ -54,3 +54,77 @@ There are a few things you must do to get the app up and running. After that the
 * Set up the weather service in a free cloud hosting service, e.g. [AWS](https://aws.amazon.com/free/) or [Google Cloud](https://cloud.google.com/free/).
 
 * Write [ansible](http://docs.ansible.com/ansible/intro.html) playbooks for installing [docker](https://www.docker.com/) and the app itself.
+
+# Solution 
+
+> OS: Windows 10
+
+## Copy and create develop branch
+
+```
+https://github.com/Eficode/weatherapp -> download zip file -> extract to c:/eficode/weatherapp
+open Git Bash 
+git init
+git add .
+git commit -m "Copy and create develop branch"
+git remote add origin https://github.com/ikihiutale/weatherapp.git
+git push -u origin master
+```
+
+## Environment
+
+* Install the newest Node version 
+
+* Upgrade npm 
+
+* The http://openweathermap.org/ APPID key value set to the wheather/backend/backend.develop.dockerfile file: ENV APPID=xxxx
+
+* Installed Docker Toolbox for Windows: https://docs.docker.com/toolbox/toolbox_install_windows/
+
+## Dockerfile
+
+### Backend
+
+Build image: 
+```
+docker build -f backend.develop.dockerfile -t <your username>/node_wheather_backend:v1.0 .
+```
+Run container: 
+```
+docker run -d -p 9000:9000 -v $(PWD):/app --name weather_backend <your username>/node_wheather_backend:v1.0 start
+
+docker run -d -p 9000:9000 -v $(PWD):/app --name weather_backend <your username>/node_wheather_backend:v1.0 dev
+
+docker run -d -p 9000:9000 -v $(PWD):/app --name weather_backend <your username>/node_wheather_backend:v1.0 lint
+```
+
+### Frontend
+
+Build image: 
+```
+docker build -f frontend.develop.dockerfile -t <user name>/node_wheather_frontend:v1.0 .
+```
+Run container:
+```
+docker run -d -p 8000:8000 -v $(PWD):/app --name weather_frontend <your username>/node_wheather_frontend:v1.0 start
+
+docker run -d -p 8000:8000 -v $(PWD):/app --name weather_frontend <your username>/node_wheather_frontend:v1.0 lint
+```
+
+## docker-compose.yml
+
+Build & run:
+```
+docker-compose build
+
+docker-compose up
+```
+
+Cleanup:
+```
+Run docker-compose down -v: 
+```
+
+### TODO
+
+I didn't get the 'volumes' up & running..
