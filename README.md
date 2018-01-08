@@ -81,9 +81,11 @@ git push -u origin master
 
 * Installed Docker Toolbox for Windows: https://docs.docker.com/toolbox/toolbox_install_windows/
 
-## Dockerfile
+## Mandotory
 
-### Backend
+### Dockerfile
+
+#### Backend
 
 Build image: 
 ```
@@ -91,14 +93,14 @@ docker build -f backend.develop.dockerfile -t <your username>/node_wheather_back
 ```
 Run container: 
 ```
-docker run -d -p 9000:9000 -v $(PWD):/app --name weather_backend <your username>/node_wheather_backend:v1.0 start
+docker run -p 9000:9000 <your username>/node_wheather_backend:v1.0 start
 
-docker run -d -p 9000:9000 -v $(PWD):/app --name weather_backend <your username>/node_wheather_backend:v1.0 dev
+docker run -p 9000:9000 <your username>/node_wheather_backend:v1.0 dev
 
-docker run -d -p 9000:9000 -v $(PWD):/app --name weather_backend <your username>/node_wheather_backend:v1.0 lint
+docker run -p 9000:9000 <your username>/node_wheather_backend:v1.0 lint
 ```
 
-### Frontend
+#### Frontend
 
 Build image: 
 ```
@@ -106,12 +108,12 @@ docker build -f frontend.develop.dockerfile -t <user name>/node_wheather_fronten
 ```
 Run container:
 ```
-docker run -d -p 8000:8000 -v $(PWD):/app --name weather_frontend <your username>/node_wheather_frontend:v1.0 start
+docker run -p 8000:8000 <your username>/node_wheather_frontend:v1.0 start
 
-docker run -d -p 8000:8000 -v $(PWD):/app --name weather_frontend <your username>/node_wheather_frontend:v1.0 lint
+docker run -p 8000:8000 <your username>/node_wheather_frontend:v1.0 lint
 ```
 
-## docker-compose.yml
+### docker-compose.yml
 
 Build & run:
 ```
@@ -125,6 +127,24 @@ Cleanup:
 Run docker-compose down -v: 
 ```
 
-### TODO
+Check Docker's IP:
+
+```
+docker-machine ip
+```
+
+## Optional
+
+### Eslint errors
+
+Backend errors fixed
+
+> docker run -p 9000:9000 <your username>/node_wheather_backend:v1.0 lint
+
+Frontend errors fixed
+
+> docker run -p 8000:8000 <your username>/node_wheather_frontend:v1.0 lint
+
+
 
 I didn't get the 'volumes' up & running..
