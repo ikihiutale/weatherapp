@@ -18,7 +18,7 @@ app.use(cors());
 const fetchWeather = async () => {
   const endpoint = `${mapURI}/weather?q=${targetCity}&appid=${appId}&`;
   const response = await fetch(endpoint);
-  console.log("RESPONSE: " + response.statusText + ", " + process.env.APPID);
+  console.log("** RESPONSE: " + response.statusText + ", " + process.env.APPID);
   return response ? response.json() : {}
 };
 
@@ -34,4 +34,4 @@ app.use(router.allowedMethods());
 
 app.listen(port);
 
-console.log(`App listening on port ${port}`);
+console.log(`App listening on port ${port}....` + appId);

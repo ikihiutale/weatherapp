@@ -1,33 +1,35 @@
-# Build image: docker build -f frontend.develop.dockerfile -t wheather_backend/v1 .
+# Build image: docker build -f frontend.develop.dockerfile -t <your username>/node_wheather_frontend:v1.0 .
 
+# Run container: 
 # Option 1
-# Start Frontend (Webpack / React / Node) and Backend (Node / Koe) 
-# and link Frontend to Backend container with legacy linking.
-#
-# docker run -d --name my-mongodb mongo
-# docker run -d -p 3000:3000 --link my-mongodb:mongodb --name nodeapp danwahlin/node
+# Start Backend (Node / Koe) and Frontend (Webpack / React / Node) so that  
+# link Frontend to Backend container with legacy linking.
+# docker run -d -p 9000:9000 --name weather_backend <your username>/node_wheather_backend:v1.0 -- dev
+# docker run -d -p 8000:8000 --link weather_backend:backend --name weather_frontend <your username>/node_wheather_frontend:v1.0 -- start
 
 # Option 2: Create a custom bridge network and add containers into it
+# docker network create --driver bridge weather_network
+# docker run -d -p 9000:9000 --net=weather_network --name weather_backend <your username>/node_wheather_backend:v1.0 dev
+#
+# docker run -d -p 8000:8000 --net=weather_network --name weather_frontend <your username>/node_wheather_frontend:v1.0 start
+# docker run -d -p 8000:8000 --net=weather_network --name weather_frontend <your username>/node_wheather_frontend:v1.0 lint
 
-# docker network create --driver bridge isolated_network
-# docker run -d --net=isolated_network --name mongodb mongo
-# docker run -d --net=isolated_network --name nodeapp -p 3000:3000 danwahlin/node
-
-# Seed the database with sample database
-# Run: docker exec nodeapp node dbSeeder.js
 
 FROM node:latest
 
 MAINTAINER Kimmo Tuokkola
 
 ENV NODE_ENV=development 
-ENV PORT=9000
+ENV ENDPOINT=http://0.0.0.0:9000/api
+ENV PORT=8000
+ENV APP_HOME=/app
 
-COPY      . /var/www
-WORKDIR   /var/www
+RUN mkdir $APP_HOME
+ADD . $APP_HOME
+WORKDIR $APP_HOME
 
-RUN       npm install
+RUN npm install
 
 EXPOSE $PORT
 
-ENTRYPOINT ["npm", "start"]
+ENTRYPOINT ["npm", "run"]

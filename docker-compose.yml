@@ -1,0 +1,33 @@
+# Run docker-compose build
+# Run docker-compose up
+
+
+version: '2'
+
+services:
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: backend.develop.dockerfile
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    entrypoint: npm run dev
+    networks:
+      - weather_network
+      
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: frontend.develop.dockerfile
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    entrypoint: npm run start
+    networks:
+      - weather_network
+
+networks:
+  weather_network:
+    driver: bridge

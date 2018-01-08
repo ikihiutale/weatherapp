@@ -6,7 +6,7 @@ const baseURL = process.env.ENDPOINT;
 const getWeatherFromApi = async () => {
   try {
     const response = await fetch(`${baseURL}/weather`);
-    console.log("Resp: " + response);
+    console.log("Resp: " + baseURL + " - " + response);
     return response.json();
   } catch (error) {
     console.error(error);

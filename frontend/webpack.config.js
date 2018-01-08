@@ -11,7 +11,7 @@ module.exports = {
   devServer: {
     contentBase: 'src/public',
     historyApiFallback: true,
-    port: 8000,
+    port: process.env.PORT || 8000,
     host: '0.0.0.0',
   },
   devtool: 'eval',
